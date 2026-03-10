@@ -31,7 +31,9 @@ public class ProductController {
     // Hiển thị form tạo mới sản phẩm
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("product", new Product());
+        Product product = new Product();
+        product.setCategory(new Category());
+        model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.getAll());
         return "product/create";
     }
@@ -63,6 +65,9 @@ public class ProductController {
         Product find = productService.get(id);
         if (find == null) {
             return "error/404";
+        }
+        if (find.getCategory() == null) {
+            find.setCategory(new Category());
         }
         model.addAttribute("product", find);
         model.addAttribute("categories", categoryService.getAll());

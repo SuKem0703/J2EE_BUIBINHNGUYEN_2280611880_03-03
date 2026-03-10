@@ -26,7 +26,10 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
             <td>
-                <img height="120" width="150" th:src="@{/images/} + ${product.image}" alt="Product Image">
+                <img th:if="${product.image != null and !#strings.isEmpty(product.image)}"
+                     height="120" width="150"
+                     th:src="@{/images/} + ${product.image}"
+                     alt="Product Image">
             </td>
             <td th:text="${product.category?.name ?: ''}"></td>
             <td>
